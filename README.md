@@ -13,4 +13,4 @@
 
 * Rails version: 5.2.4
 
-* Database: PostgreSQL 12.2  
+* Database: PostgreSQL 12.2
