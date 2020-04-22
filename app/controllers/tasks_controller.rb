@@ -9,8 +9,11 @@ class TasksController < ApplicationController
   
   def create
     @task = Task.new(task_params)
-    @task.save
-    redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
+    if @task.save
+      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
+    else
+      render :new
+    end
   end
 
   def show
@@ -23,8 +26,11 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update!(task_params)
-    redirect_to task_url, notice: "タスク「#{@task.name}」を更新しました。"
+    if @task.update(task_params)
+      redirect_to task_url, notice: "タスク「#{@task.name}」を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
