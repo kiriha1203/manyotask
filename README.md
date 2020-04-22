@@ -2,12 +2,12 @@
 
 ## Database
 
-*Table_name: tasks
-    *column(type)
-        *name(string)
-        *content(text)
+* Table_name: tasks
+    * column(type)
+        * name(string)
+        * content(text)
     
-##Things you may want to cover:
+## Things you may want to cover:
 
 * Ruby version: 2.6.5
 
