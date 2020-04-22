@@ -2,10 +2,42 @@
 
 ## Database
 
-* Table_name: tasks
-    * column(type)
-        * name(string)
-        * content(text)
+| *User*          |  
+|-----------------|
+| id              |
+|-----------------|
+| name            |
+| email           |
+| password_digest |
+
+
+| *Task*          |  
+|-----------------|
+| id              |
+| user_id(FK)     |
+|-----------------|
+| name            |
+| content         |
+| priority        |
+| end_deadline    |
+
+
+| *Task_Label*    |  
+|-----------------|
+| id              |
+| task_id(FK)     |
+| label_id(FK)    |
+|-----------------|
+|                 |
+
+
+| *Label*         |  
+|-----------------|
+| id              |
+|-----------------|
+| name            |
+
+
     
 ## Things you may want to cover:
 
