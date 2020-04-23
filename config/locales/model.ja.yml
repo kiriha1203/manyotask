@@ -6,3 +6,4 @@ ja:
       task:
         name: 名前
         content: 内容
+        end_deadline: 期限日

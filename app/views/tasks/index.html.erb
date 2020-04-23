@@ -6,8 +6,16 @@
   <table class="table table-hover">
     <thead class="thead-default">
       <tr>
+        <% def sortTh(name,columnName) %>
+          <% if request.fullpath.include?('desc') %>
+            <% link_to name, sort: columnName %>
+          <% else %>
+            <% link_to name, sort: "#{columnName} desc" %>
+          <%end %>
+        <% end %>
+
         <th>名称</th>
-        <th>登録日時</th>
+        <th><%= sortTh('期限日', 'end_deadline') %></th>
         <th></th>
       </tr>
     </thead>
@@ -15,7 +23,7 @@
       <% @tasks.each do |task| %>
       <tr>
         <td><%= link_to task.name, task_path(task) %></td>
-        <td><%=task.created_at %></td>
+        <td><%=task.end_deadline %></td>
         <td>
           <%= link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3' %>
           <%= link_to '削除', task, method: :delete,
