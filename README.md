@@ -1,24 +1,50 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Database
 
-Things you may want to cover:
+* テーブル名は太字
 
-* Ruby version
+* キー属性のものはイタリック
 
-* System dependencies
+*　非キー属性のものは通常文字
 
-* Configuration
+| **User**                |  
+|-------------------------|
+| *id*                    |
+| name(string)            |
+| email(string)           |
+| password_digest(string) |
 
-* Database creation
 
-* Database initialization
+| **Task**              |  
+|-----------------------|
+| *id*                  |
+| *user_id(FK)*         |
+| name(string)          |
+| content(text)         |
+| priority(string)      |
+| end_deadline(integer) |
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+| **Task_Label**  |  
+|-----------------|
+| *id*            |
+| *task_id(FK)*   |
+| *label_id(FK)*  |
+|                 |
 
-* Deployment instructions
 
-* ...
+| **Label**       |  
+|-----------------|
+| *id*            |
+| name(strings)   |
+
+
+    
+## Things you may want to cover:
+
+* Ruby version: 2.6.5
+
+* Rails version: 5.2.4
+
+* Database: PostgreSQL 12.2
