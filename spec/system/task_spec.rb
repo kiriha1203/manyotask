@@ -26,6 +26,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[2]).to have_content 'Factoryで作ったデフォルトのタイトル１'
       end
     end
+    context '終了期限でソートする' do
+      it '終了期限の昇順で並んでいる' do
+        # タスク一覧ページに遷移
+        visit tasks_path
+        click_on '期限日'
+        task_list = all('tbody tr')
+        expect(task_list[0]).to have_content '2030-05-30'
+        expect(task_list[1]).to have_content '2030-04-30'
+        expect(task_list[2]).to have_content '2030-03-30'
+      end
+    end
   end
   describe 'タスク登録画面' do
     context '必要項目を入力して、createボタンを押した場合' do
@@ -39,6 +50,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'task_name', with: 'task2'
         # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in 'task_content', with: 'rspec_test2'
+        fill_in "task_end_deadline", with: Date.today
+        select '完了', from: 'task_status'
+        select '低', from: 'task_priority'
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_on '登録する'

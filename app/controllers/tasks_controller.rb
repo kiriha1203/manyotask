@@ -2,12 +2,12 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     if params[:search].present?
-      if params[:search][:name_search].present? && params[:search][:status_search].present?
-        @tasks = @tasks.name_like(params[:search][:name_search]).status_search(params[:search][:status_search])
-      elsif params[:search][:name_search].present?
-        @tasks = @tasks.name_like(params[:search][:name_search])
-      elsif params[:search][:status_search].present?
-        @tasks = @tasks.status_search(params[:search][:status_search])
+      if params[:name_search].present? && params[:status_search].present?
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search])
+      elsif params[:name_search].present?
+        @tasks = @tasks.name_like(params[:name_search])
+      elsif params[:status_search].present?
+        @tasks = @tasks.status_search(params[:status_search])
       end
     elsif params[:sort].present?
       @tasks = @tasks.order(params[:sort])

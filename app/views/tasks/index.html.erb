@@ -2,7 +2,7 @@
 
 <%= link_to '新規登録', new_task_path, class: 'btn btn-primary' %>
 
-<%= form_with(scope: :search, url: tasks_path,  method: :get, local: true ) do |f| %>
+<%= form_with(url: tasks_path,  method: :get, local: true ) do |f| %>
   <div class="form-group">
     <%= f.label :name_search %>
     <%= f.text_field :name_search, class: 'form-control' %>

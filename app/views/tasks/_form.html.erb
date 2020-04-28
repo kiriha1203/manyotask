@@ -22,12 +22,12 @@
   <div class="form-group">
     <%= f.label :status %>
     <br>
-    <%= f.select :status, Task.statuses.keys, class: 'form-control', include_blank:"選択してください。" %>
+    <%= f.select :status, Task.statuses.keys, class: 'form-control', include_blank:"選択してください。", id: 'task_status' %>
   </div>
   <div class="form-group">
     <%= f.label :priority %>
     <br>
-    <%= f.select :priority, Task.priorities.keys, class: 'form-control', include_blank:"選択してください。" %>
+    <%= f.select :priority, Task.priorities.keys, class: 'form-control', include_blank:"選択してください。", id:'task_priority' %>
   </div>
   <%= f.submit nil, class: 'btn btn-primary' %>
 <% end %>
