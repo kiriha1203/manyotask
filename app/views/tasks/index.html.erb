@@ -14,26 +14,22 @@
   <div class="form-group">
     <%= f.hidden_field :search, value: 'true' %>
   </div>
-  <%= f.submit '検索', class: 'btn btn-primary' %>
+  <%= f.submit '検索', class: 'btn btn-primary' %> <%= link_to "リセット", tasks_path, class: 'btn btn-primary' %>
 <% end %>
 
 <div class="mb-3">
   <table class="table table-hover">
     <thead class="thead-default">
-      <tr>
-        <% def sortTh(name,columnName) %>
-          <% if request.fullpath.include?('desc') %>
-            <% link_to name, sort: columnName %>
-          <% else %>
-            <% link_to name, sort: "#{columnName} desc" %>
-          <%end %>
-        <% end %>
-
         <th>名称</th>
-        <th><%= sortTh('期限日', 'end_deadline') %></th>
+        <th>期限日
+          <%= link_to "▲", tasks_path(column: "end_deadline", sort: "ASC", name_search: "#{params[:name_search]}", status_search: "#{params[:status_search]}", priority: "#{params[:priority]}", search: "#{params[:search]}") %>
+          <%= link_to "▼", tasks_path(column: "end_deadline", sort: "DESC", name_search: params[:name_search], status_search: params[:status_search], priority: params[:priority], search: params[:search]) %>
+        </th>
         <th>ステータス</th>
-        <th>優先度</th>
-        <th></th>
+        <th>優先度
+          <%= link_to "▲", tasks_path(column: "priority", sort: "ASC", name_search: params[:name_search], status_search: params[:status_search], priority: params[:priority], search: params[:search]) %>
+          <%= link_to "▼", tasks_path(column: "priority", sort: "DESC", name_search: params[:name_search], status_search: params[:status_search], priority: params[:priority], search: params[:search]) %>
+        </th>
       </tr>
     </thead>
     <tbody>

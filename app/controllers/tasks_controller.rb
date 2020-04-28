@@ -3,14 +3,16 @@ class TasksController < ApplicationController
     @tasks = Task.all
     if params[:search].present?
       if params[:name_search].present? && params[:status_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search])
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
       elsif params[:name_search].present?
-        @tasks = @tasks.name_like(params[:name_search])
+        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}")
       elsif params[:status_search].present?
-        @tasks = @tasks.status_search(params[:status_search])
+        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
+      else
+        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
       end
     elsif params[:sort].present?
-      @tasks = @tasks.order(params[:sort])
+      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
     else
       @tasks = @tasks.recent
     end
