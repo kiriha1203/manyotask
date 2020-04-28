@@ -1,14 +1,15 @@
 <h1>タスク一覧</h1>
 
 <%= link_to '新規登録', new_task_path, class: 'btn btn-primary' %>
-
+<br>
+<br>
 <%= form_with(url: tasks_path,  method: :get, local: true ) do |f| %>
   <div class="form-group">
-    <%= f.label :name_search %>
+    <%= f.label :name_search, '名称検索' %>
     <%= f.text_field :name_search, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :status_search %>
+    <%= f.label :status_search, 'ステータス検索' %>
     <%= f.select :status_search, Task.statuses.keys, class: 'form-control', include_blank: true, selected:'' %>
   </div>
   <div class="form-group">
@@ -58,4 +59,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @tasks %>
 </div>
