@@ -1,9 +1,12 @@
 class TasksController < ApplicationController
   def index
-    if params[:sort].nil?
-     @tasks = Task.recent
+    @tasks = Task.all
+    if params[:name_search].present?
+      @tasks = @tasks.where('name LIKE ?', "%#{params[:name_search]}%") if params[:name_search]
+    elsif params[:sort].present?
+      @tasks = @tasks.order(params[:sort])
     else
-      @tasks = Task.order(params[:sort])
+      @tasks = @tasks.recent
     end
   end
   

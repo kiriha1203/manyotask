@@ -2,18 +2,10 @@
 
 <%= link_to '新規登録', new_task_path, class: 'btn btn-primary' %>
 
-<%= form_with(model:Task.new, method: :get, local: true ) do |f| %>
+<%= form_with(url: tasks_path,  method: :get, local: true ) do |f| %>
   <div class="form-group">
     <%= f.label :name_search %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :priority_search %>
-    <%= f.select :priority, [["未着手","未着手"], ["着手中","着手中"],
-                 ["完了","完了"]], class: 'form-control', include_blank: true, selected:'' %>
-  </div>
-  <div class="form-group">
-    <%= f.hidden_field :search, value: 'true' %>
+    <%= f.text_field :name_search, class: 'form-control' %>
   </div>
   <%= f.submit '検索', class: 'btn btn-primary' %>
 <% end %>
@@ -32,6 +24,8 @@
 
         <th>名称</th>
         <th><%= sortTh('期限日', 'end_deadline') %></th>
+        <th>ステータス</th>
+        <th>優先度</th>
         <th></th>
       </tr>
     </thead>
@@ -40,6 +34,8 @@
       <tr>
         <td><%= link_to task.name, task_path(task) %></td>
         <td><%=task.end_deadline %></td>
+        <td><%=task.status %></td>
+        <td><%=task.priority %></td>
         <td>
           <%= link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3' %>
           <%= link_to '削除', task, method: :delete,

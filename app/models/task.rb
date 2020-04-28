@@ -10,4 +10,6 @@ class Task < ApplicationRecord
   end
 
   scope :recent, -> { order(id: :desc)}
+
+
 end

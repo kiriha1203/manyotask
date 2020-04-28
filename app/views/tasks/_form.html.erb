@@ -20,10 +20,14 @@
     <%= f.date_field :end_deadline, class: 'form-control', id: 'task_end_deadline' %>
   </div>
   <div class="form-group">
+    <%= f.label :status %>
+    <br>
     <%= f.select :status, [["未着手","未着手"], ["着手中","着手中"],
                              ["完了","完了"]], class: 'form-control', include_blank:"選択してください。" %>
   </div>
   <div class="form-group">
+    <%= f.label :priority %>
+    <br>
     <%= f.select :priority, [["高","高"], ["中","中"],
                              ["低","低"]], class: 'form-control', include_blank:"選択してください。" %>
   </div>
