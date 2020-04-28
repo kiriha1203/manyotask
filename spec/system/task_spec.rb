@@ -27,10 +27,10 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context '終了期限でソートする' do
-      it '終了期限の昇順で並んでいる' do
+      it '終了期限の降順で並んでいる' do
         # タスク一覧ページに遷移
         visit tasks_path
-        click_on '期限日'
+        click_on 'desc_end_deadline'
         task_list = all('tbody tr')
         expect(task_list[0]).to have_content '2030-05-30'
         expect(task_list[1]).to have_content '2030-04-30'
