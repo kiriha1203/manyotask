@@ -37,6 +37,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[2]).to have_content '2030-03-30'
       end
     end
+    context '優先順位でソートする' do
+      it '優先順位の昇順で並んでいる' do
+        # タスク一覧ページに遷移
+        visit tasks_path
+        click_on 'asc_priority'
+        task_list = all('tbody tr')
+        expect(task_list[0]).to have_content '高'
+        expect(task_list[1]).to have_content '中'
+        expect(task_list[2]).to have_content '低'
+      end
+    end
   end
   describe 'タスク登録画面' do
     context '必要項目を入力して、createボタンを押した場合' do
