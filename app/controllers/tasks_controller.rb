@@ -1,6 +1,23 @@
 class TasksController < ApplicationController
-  def index 
-    @tasks = Task.recent
+  PER = 10
+
+  def index
+    @tasks = Task.all
+    if params[:search].present?
+      if params[:name_search].present? && params[:status_search].present?
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+      elsif params[:name_search].present?
+        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+      elsif params[:status_search].present?
+        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+      else
+        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+      end
+    elsif params[:sort].present?
+      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+    else
+      @tasks = @tasks.recent.page(params[:page]).per(PER)
+    end
   end
   
   def new
@@ -42,6 +59,6 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :content)
+    params.require(:task).permit(:name, :content, :end_deadline, :status, :priority)
   end
 end

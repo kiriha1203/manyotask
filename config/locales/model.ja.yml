@@ -6,3 +6,15 @@ ja:
       task:
         name: 名前
         content: 内容
+        end_deadline: 期限日
+        status: ステータス
+        priority: 優先度
+        name_search: 名称検索
+        status_search: ステータス検索
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
