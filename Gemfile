@@ -63,3 +63,7 @@ group :test do
 end
 
 gem 'bootstrap'
+
+gem 'uglifier'
+
+gem 'dotenv-rails'
