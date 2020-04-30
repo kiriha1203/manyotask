@@ -1,0 +1,27 @@
+<h1>ユーザー詳細</h1>
+
+<table class="table table-hover">
+  <tbody>
+  <tr>
+    <th>ID</th>
+    <td><%= @user.id %></td>
+  </tr>
+  <tr>
+    <th>名前</th>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @user.email%></td>
+  </tr>
+  <tr>
+    <th>作成日時</th>
+    <td><%= @task.created_at %></td>
+  </tr>
+  <tr>
+    <th>更新日時</th>
+    <td><%= @task.updated_at %></td>
+  </tr>
+  </tbody>
+</table>
+<%= link_to '編集', edit_user_path, class: 'btn btn-primary mr-3' %>

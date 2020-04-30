@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
 
+  belongs_to :user
+
   def date_not_pretend_ago
     errors.add(:end_deadline,"は今日以降のものを選択してください") if end_deadline.nil? || end_deadline < Date.today
   end
