@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   PER = 10
 
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks
     if params[:search].present?
       if params[:name_search].present? && params[:status_search].present?
         @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
@@ -21,11 +22,11 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
   
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
     else
@@ -34,15 +35,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to task_url, notice: "タスク「#{@task.name}」を更新しました。"
     else
@@ -51,14 +49,20 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました。"
 
   end
 
   private
+
   def task_params
     params.require(:task).permit(:name, :content, :end_deadline, :status, :priority)
   end
+
+  def set_task
+    @task = current_user.tasks.find(params[:id])
+  end
+
+
 end
