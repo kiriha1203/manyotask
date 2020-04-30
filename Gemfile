@@ -69,3 +69,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 
 gem 'kaminari-bootstrap'
+
+gem 'uglifier'
+
+gem 'dotenv-rails'
