@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+40.times do |n|
+  Task.create!(name: "task#{n+1}",
+               content: "sample_task#{n+2}",
+               end_deadline: '2030-05-30',
+               priority: "低",
+               status: "未着手"
+  )
+end

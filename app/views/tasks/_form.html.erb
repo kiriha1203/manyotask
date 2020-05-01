@@ -15,5 +15,19 @@
     <%= f.label :content %>
     <%= f.text_area :content, row: 5, class: 'form-control', id: 'task_content' %>
   </div>
+  <div class="form-group">
+    <%= f.label :end_deadline %>
+    <%= f.date_field :end_deadline, class: 'form-control', id: 'task_end_deadline' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status %>
+    <br>
+    <%= f.select :status, Task.statuses.keys, class: 'form-control', include_blank:"選択してください。", id: 'task_status' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :priority %>
+    <br>
+    <%= f.select :priority, Task.priorities.keys, class: 'form-control', include_blank:"選択してください。", id:'task_priority' %>
+  </div>
   <%= f.submit nil, class: 'btn btn-primary' %>
 <% end %>
