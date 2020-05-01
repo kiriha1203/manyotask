@@ -49,6 +49,7 @@ group :development do
   gem 'better_errors'
   # better_errorsの画面上にirb/pry(PERL)を表示する
   gem 'binding_of_caller'
+  gem 'bullet'
 end
 
 gem 'turbolinks'
@@ -74,5 +75,3 @@ gem 'kaminari-bootstrap'
 gem 'uglifier'
 
 gem 'dotenv-rails'
-
-

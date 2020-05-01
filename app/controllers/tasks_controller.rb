@@ -6,15 +6,14 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks
     if params[:search].present?
       if params[:name_search].present? && params[:status_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search])
       elsif params[:name_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}")
+        @tasks = @tasks.name_like(params[:name_search])
       elsif params[:status_search].present?
-        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
-      else
-        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
+        @tasks = @tasks.status_search(params[:status_search])
       end
-    elsif params[:sort].present?
+    end
+    if params[:sort].present?
       @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
     else
       @tasks = @tasks.recent.page(params[:page])
