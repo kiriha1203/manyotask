@@ -1,24 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  PER = 10
+  PER = 5
 
   def index
     @tasks = current_user.tasks
     if params[:search].present?
       if params[:name_search].present? && params[:status_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
       elsif params[:name_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}")
       elsif params[:status_search].present?
-        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}")
       else
-        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
       end
     elsif params[:sort].present?
-      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
     else
-      @tasks = @tasks.recent.page(params[:page]).per(PER)
+      @tasks = @tasks.recent.page(params[:page])
     end
+    @tasks = @tasks.page(params[:page]).per(PER)
   end
   
   def new

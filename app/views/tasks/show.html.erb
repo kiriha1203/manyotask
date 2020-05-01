@@ -18,16 +18,25 @@
       <td><%= simple_format(h(@task.content), {}, sanitize: false, wrapper_tags: "div") %></td>
     </tr>
     <tr>
+      <th>期限日</th>
+      <td><%= @task.end_deadline %></td>
+    </tr>
+    <tr>
+      <th>ステータス</th>
+      <td><%= @task.status %></td>
+    </tr>
+    <tr>
+      <th>優先度</th>
+      <td><%= @task.priority %></td>
+    </tr>
+    <tr>
       <th>作成日時</th>
-      <td><%= @task.created_at %></td>
+      <td><%= @task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
     </tr>
     <tr>
       <th>更新日時</th>
-      <td><%= @task.updated_at %></td>
+      <td><%= @task.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
     </tr>
   </tbody>
 </table>
 <%= link_to '編集', edit_task_path, class: 'btn btn-primary mr-3' %>
-<%= link_to '削除', @task, method: :delete,
-            data: { confirm: "タスク「#{@task.name}」を削除します。よろしいですか？"},
-            class: 'btn btn-danger'%>

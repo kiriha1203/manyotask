@@ -31,13 +31,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    if params[:id] == current_user.id
+      @user = User.find(params[:id])
+    else
+      redirect_to tasks_path
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
   end
 
   def login_reject_sign_in
