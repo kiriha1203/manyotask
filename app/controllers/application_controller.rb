@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
   before_action :login_required
+  protect_from_forgery with: :exception
+
+  add_flash_types :success, :info, :warning, :danger
 
   http_basic_authenticate_with :name =>ENV['BASIC_AUTH_USERNAME'], :password => ENV['BASIC_AUTH_PASSWORD'] if Rails.env == "production"
 
@@ -11,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required
-    redirect_to login_url, notice: 'ログインしていません。' unless current_user
+    redirect_to login_url, warning: 'ログインしていません。' unless current_user
   end
 
 end

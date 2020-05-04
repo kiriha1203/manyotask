@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      redirect_to tasks_url, notice: 'ログインしました。'
+      redirect_to tasks_url, success: 'ログインしました。'
     else
       render :new
     end
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to login_url, notice: 'ログアウトしました。'
+    redirect_to login_url, success: 'ログアウトしました。'
   end
 
   private

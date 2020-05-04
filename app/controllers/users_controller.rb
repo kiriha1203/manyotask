@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to tasks_url, notice: "ユーザー「#{@user.name}」を登録しました。"
+      redirect_to tasks_url, success: "ユーザー「#{@user.name}」を登録しました。"
     else
       render :new
     end
@@ -24,18 +24,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      redirect_to user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました。"
+      redirect_to user_url(@user), success: "ユーザー「#{@user.name}」を更新しました。"
     else
       render :edit
     end
   end
 
   def show
-    if params[:id] == current_user.id
-      @user = User.find(params[:id])
-    else
-      redirect_to tasks_path
-    end
+    @user = User.find(params[:id])
+    redirect_to tasks_path unless @user.id == current_user.id
   end
 
   private
@@ -45,6 +42,6 @@ class UsersController < ApplicationController
   end
 
   def login_reject_sign_in
-    redirect_to tasks_url, notice: "ログイン中は登録を行えません。" if current_user
+    redirect_to tasks_url, danger: "ログイン中は登録を行えません。" if current_user
   end
 end

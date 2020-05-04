@@ -26,7 +26,48 @@
   </tr>
   </tbody>
 </table>
+
 <%= link_to '編集', edit_admin_user_path, class: 'btn btn-primary mr-3' %>
 <%= link_to '削除', [:admin, @user], method: :delete,
             data: { confirm: "ユーザー「#{@user.name}」を削除します。よろしいですか？"},
             class: 'btn btn-danger' %>
+
+
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+    　<tr>
+      <th>名称</th>
+      <th>期限日
+        <%= link_to "▲", tasks_path(column: "end_deadline", sort: "ASC", name_search: params[:name_search],
+                                    status_search: params[:status_search], priority: params[:priority],
+                                    search: params[:search]), id: "asc_end_deadline" %>
+        <%= link_to "▼", tasks_path(column: "end_deadline", sort: "DESC", name_search: params[:name_search],
+                                    status_search: params[:status_search], priority: params[:priority],
+                                    search: params[:search]), id: "desc_end_deadline" %>
+      </th>
+      <th>ステータス</th>
+      <th>優先度
+        <%= link_to "▲", tasks_path(column: "priority", sort: "ASC", name_search: params[:name_search],
+                                    status_search: params[:status_search], priority: params[:priority],
+                                    search: params[:search]), id: "asc_priority" %>
+        <%= link_to "▼", tasks_path(column: "priority", sort: "DESC", name_search: params[:name_search],
+                                    status_search: params[:status_search], priority: params[:priority],
+                                    search: params[:search]), id: "desc_priority" %>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.end_deadline %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @user_tasks %>
+</div>
