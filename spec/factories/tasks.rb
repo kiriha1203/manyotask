@@ -7,7 +7,6 @@ FactoryBot.define do
     end_deadline { '2030-04-30' }
     priority { '低' }
     status { '未着手' }
-    user
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -16,8 +15,7 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
     end_deadline { '2030-05-30' }
     priority { '中' }
-    status { '着手中' }
-    user
+    status { '未着手' }
   end
 
   factory :third_task, class: Task do
@@ -26,7 +24,6 @@ FactoryBot.define do
     end_deadline { '2030-03-30' }
     priority { '高' }
     status { '完了' }
-    user
   end
 
 end
