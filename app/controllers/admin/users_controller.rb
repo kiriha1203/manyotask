@@ -24,6 +24,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    if params[:user][:password].blank?
+      params[:user].delete("password")
+    end
     if @user.update(user_params)
       redirect_to admin_user_url(@user), success: "ユーザー「#{@user.name}」を更新しました。"
     else
