@@ -37,6 +37,7 @@ group :development, :test do
   gem 'pry-doc'    # methodを表示
   gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
   gem 'pry-stack_explorer' # スタックをたどれる
+  gem 'bullet'
 end
 
 group :development do
@@ -59,7 +60,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'database_cleaner'
 end
@@ -68,6 +68,8 @@ gem 'bootstrap'
 
 gem 'jquery-rails'
 
+gem 'jquery-ui-rails'
+
 gem 'kaminari'
 
 gem 'kaminari-bootstrap'
@@ -75,3 +77,5 @@ gem 'kaminari-bootstrap'
 gem 'uglifier'
 
 gem 'dotenv-rails'
+
+gem 'sassc-rails'

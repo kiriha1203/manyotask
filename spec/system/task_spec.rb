@@ -3,9 +3,14 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
-    FactoryBot.create(:third_task)
+    FactoryBot.create(:user)
+    FactoryBot.create(:task, user: user)
+    FactoryBot.create(:second_task, user: user)
+    FactoryBot.create(:third_task, user: user)
+    visit login_path
+    fill_in 'session_email', with: 'sample@example.com'
+    fill_in 'session_password', with: '00000000'
+    click_on 'ログインする'
   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
