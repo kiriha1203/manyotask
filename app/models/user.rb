@@ -12,9 +12,6 @@ class User < ApplicationRecord
   private
 
   def cant_destroy_last_user_admin
-    user = User.find(id)
-    if user.admin? && User.where(admin: true).count == 1
-      throw :abort
-    end
+    throw :abort if User.where(admin: true).count == 1
   end
 end
