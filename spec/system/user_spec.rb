@@ -22,8 +22,8 @@ RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :
   describe 'セッション機能のテスト' do
     context 'ユーザー登録をしている場合' do
       before do
-        FactoryBot.create(:user)
-        FactoryBot.create(:admin_user)
+        create(:user)
+        create(:admin_user)
         visit login_path
         fill_in 'session_email', with: 'sample@example.com'
         fill_in 'session_password', with: '00000000'
