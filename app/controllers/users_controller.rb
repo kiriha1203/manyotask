@@ -20,9 +20,8 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if params[:user][:password].blank?
-      params[:user].delete("password")
-    end
+    # editのパスワード無記入時元のまま登録させる（バリデーションエラーを発生させない）
+    params[:user].delete("password") if params[:user][:password].blank?
     if @user.update(user_params)
       redirect_to user_url(@user), success: "ユーザー「#{@user.name}」を更新しました。"
     else
