@@ -3,6 +3,8 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :show, :update, :destroy]
   skip_before_action :login_required, only: [:new, :create]
 
+  layout 'admin_application'
+
   def index
     @users = User.includes(:tasks)
   end

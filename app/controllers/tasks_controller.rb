@@ -19,10 +19,12 @@ class TasksController < ApplicationController
       @tasks = @tasks.recent.page(params[:page])
     end
     @tasks = @tasks.page(params[:page]).per(PER)
+    change_layout
   end
   
   def new
     @task = current_user.tasks.build
+    change_layout
   end
   
   def create
@@ -30,26 +32,29 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_url, success: "タスク「#{@task.name}」を登録しました"
     else
-      render :new
+      change_layout_render(:new)
     end
   end
 
-  def show; end
+  def show
+    change_layout
+  end
 
-  def edit; end
+  def edit
+    change_layout
+  end
 
   def update
     if @task.update(task_params)
       redirect_to task_url, success: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit
+      change_layout_render(:edit)
     end
   end
 
   def destroy
     @task.destroy
     redirect_to tasks_url, success: "タスク「#{@task.name}」を削除しました。"
-
   end
 
   private
@@ -60,5 +65,19 @@ class TasksController < ApplicationController
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def change_layout
+    if current_user.admin?
+      render layout: 'admin_application'
+    end
+  end
+
+  def change_layout_render(action)
+    if current_user.admin?
+      render action, layout: 'admin_application'
+    else
+      render action
+    end
   end
 end
