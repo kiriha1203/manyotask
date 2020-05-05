@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :system do
   before do
-    FactoryBot.create(:user)
-    FactoryBot.create(:admin_user)
+    create(:user)
+    create(:admin_user)
   end
   describe "管理画面のテスト" do
     context "管理者登録をしている場合" do
