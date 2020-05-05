@@ -68,9 +68,7 @@ class TasksController < ApplicationController
   end
 
   def change_layout
-    if current_user.admin?
-      render layout: 'admin_application'
-    end
+    render layout: 'admin_application' if current_user.admin?
   end
 
   def change_layout_render(action)
