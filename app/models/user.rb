@@ -12,6 +12,10 @@ class User < ApplicationRecord
   private
 
   def cant_destroy_last_user_admin
-    throw :abort if User.where(admin: true).count == 1
+    #消す相手がadminかつDBの最後のadminの場合消せない
+    user = User.find(id)
+    if user.admin? && User.where(admin: true).count == 1
+      throw :abort
+    end
   end
 end
