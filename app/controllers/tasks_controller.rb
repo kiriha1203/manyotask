@@ -72,10 +72,6 @@ class TasksController < ApplicationController
   end
 
   def change_layout_render(action)
-    if current_user.admin?
-      render action, layout: 'admin_application'
-    else
-      render action
-    end
+    current_user.admin? ? render action, layout: 'admin_application' : render action
   end
 end
