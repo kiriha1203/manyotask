@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe 'タスク検索機能', type: :system do

@@ -38,9 +38,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
         click_on 'desc_end_deadline'
         task_list = all('tbody tr')
-        wait.until{expect(task_list[0]).to have_content '2030-05-30'}
-        wait.until{expect(task_list[1]).to have_content '2030-04-30'}
-        wait.until{expect(task_list[2]).to have_content '2030-03-30'}
+        wait.until{expect(task_list[0]).to have_content '中'}
+        wait.until{expect(task_list[1]).to have_content '低'}
+        wait.until{expect(task_list[2]).to have_content '高'}
       end
     end
     context '優先順位でソートする' do
