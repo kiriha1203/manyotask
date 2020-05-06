@@ -15,7 +15,7 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
     end_deadline { '2030-05-30' }
     priority { '中' }
-    status { '着手中' }
+    status { '未着手' }
   end
 
   factory :third_task, class: Task do

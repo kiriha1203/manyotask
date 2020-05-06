@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   validates :name, presence: true
   validates :content, presence: true
   validate :date_not_pretend_ago
@@ -13,8 +15,6 @@ class Task < ApplicationRecord
   scope :name_like, -> (name_search) { where('name LIKE ?', "%#{name_search}%")}
   scope :status_search, ->(status_search) { where( status: status_search)}
 
-
   enum priority: { 高: 0, 中: 50, 低: 99 }
   enum status:  { 未着手: 0, 着手中: 1, 完了: 99}
-
 end

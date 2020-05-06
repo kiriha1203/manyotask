@@ -1,64 +1,77 @@
 class TasksController < ApplicationController
-  PER = 10
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 5
 
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks
     if params[:search].present?
       if params[:name_search].present? && params[:status_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search])
       elsif params[:name_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.name_like(params[:name_search])
       elsif params[:status_search].present?
-        @tasks = @tasks.status_search(params[:status_search]).order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
-      else
-        @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
+        @tasks = @tasks.status_search(params[:status_search])
       end
-    elsif params[:sort].present?
-      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}").page(params[:page]).per(PER)
-    else
-      @tasks = @tasks.recent.page(params[:page]).per(PER)
     end
+    if params[:sort].present?
+      @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
+    else
+      @tasks = @tasks.recent.page(params[:page])
+    end
+    @tasks = @tasks.page(params[:page]).per(PER)
+    change_layout
   end
   
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
+    change_layout
   end
   
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
-      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました"
+      redirect_to tasks_url, success: "タスク「#{@task.name}」を登録しました"
     else
-      render :new
+      change_layout_render(:new)
     end
   end
 
   def show
-    @task = Task.find(params[:id])
+    change_layout
   end
 
   def edit
-    @task = Task.find(params[:id])
+    change_layout
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to task_url, notice: "タスク「#{@task.name}」を更新しました。"
+      redirect_to task_url, success: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit
+      change_layout_render(:edit)
     end
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました。"
-
+    redirect_to tasks_url, success: "タスク「#{@task.name}」を削除しました。"
   end
 
   private
+
   def task_params
     params.require(:task).permit(:name, :content, :end_deadline, :status, :priority)
+  end
+
+  def set_task
+    @task = current_user.tasks.find(params[:id])
+  end
+
+  def change_layout
+    render layout: 'admin_application' if current_user.admin?
+  end
+
+  def change_layout_render(action)
+    current_user.admin? ? (render action, layout: 'admin_application') : (render action)
   end
 end

@@ -3,9 +3,14 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    FactoryBot.create(:task)
-    FactoryBot.create(:second_task)
-    FactoryBot.create(:third_task)
+    user = create(:user)
+    create(:task, user: user)
+    create(:second_task, user: user)
+    create(:third_task, user: user)
+    visit login_path
+    fill_in 'session_email', with: 'sample@example.com'
+    fill_in 'session_password', with: '00000000'
+    click_on 'ログインする'
   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
@@ -29,23 +34,25 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限でソートする' do
       it '終了期限の降順で並んでいる' do
         # タスク一覧ページに遷移
+        wait = Selenium::WebDriver::Wait.new(:timeout => 100)
         visit tasks_path
         click_on 'desc_end_deadline'
         task_list = all('tbody tr')
-        expect(task_list[0]).to have_content '2030-05-30'
-        expect(task_list[1]).to have_content '2030-04-30'
-        expect(task_list[2]).to have_content '2030-03-30'
+        wait.until{expect(task_list[0]).to have_content '中'}
+        wait.until{expect(task_list[1]).to have_content '低'}
+        wait.until{expect(task_list[2]).to have_content '高'}
       end
     end
     context '優先順位でソートする' do
       it '優先順位の昇順で並んでいる' do
         # タスク一覧ページに遷移
+        wait = Selenium::WebDriver::Wait.new(:timeout => 100)
         visit tasks_path
         click_on 'asc_priority'
         task_list = all('tbody tr')
-        expect(task_list[0]).to have_content '高'
-        expect(task_list[1]).to have_content '中'
-        expect(task_list[2]).to have_content '低'
+        wait.until{expect(task_list[0]).to have_content '高'}
+        wait.until{expect(task_list[1]).to have_content '中'}
+        wait.until{expect(task_list[2]).to have_content '低'}
       end
     end
   end
