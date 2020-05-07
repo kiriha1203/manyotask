@@ -30,6 +30,18 @@
       <td><%= @task.priority %></td>
     </tr>
     <tr>
+      <th>ラベル</th>
+      <td>
+        <% if @task.labels == [] %>
+            <%= 'なし' %>
+          <% else %>
+            <% @task.labels.each do |label| %>
+              <%= '#' + label.name %>
+            <% end %>
+          <% end %>
+      </td>
+    </tr>
+    <tr>
       <th>作成日時</th>
       <td><%= @task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
     </tr>

@@ -40,6 +40,7 @@
                                       status_search: params[:status_search], priority: params[:priority],
                                       search: params[:search]), id: "desc_priority" %>
         </th>
+        <th>ラベル</th>
         <th><%#=ボタン部分のborder延長%></th>
       </tr>
     </thead>
@@ -50,6 +51,15 @@
         <td><%=task.end_deadline %></td>
         <td><%=task.status %></td>
         <td><%=task.priority %></td>
+        <td>
+          <% if task.labels == [] %>
+            <%= 'なし' %>
+          <% else %>
+            <% task.labels.each do |label| %>
+              <%= '#' + label.name %>
+            <% end %>
+          <% end %>
+        </td>
         <td>
           <%= link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3' %>
           <%= link_to '削除', task, method: :delete,
