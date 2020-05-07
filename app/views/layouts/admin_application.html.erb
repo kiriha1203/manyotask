@@ -20,6 +20,7 @@
           </li>
           <li class="nav-item"><%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %></li>
           <li class="nav-item"><%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'ラベル一覧', admin_labels_path, class: 'nav-link' %></li>
           <li class="nav-item"><%= link_to '詳細', admin_user_path(current_user.id), class: 'nav-link' %></li>
           <li class="nav-item"><%= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link' %></li>
         <% else %>

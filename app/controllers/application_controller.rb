@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
   def login_required
     redirect_to login_url, warning: 'ログインしていません。' unless current_user
   end
+
+  def require_admin
+    redirect_to tasks_url, warning: "管理者権限がありません。" unless current_user.admin?
+  end
+
 end

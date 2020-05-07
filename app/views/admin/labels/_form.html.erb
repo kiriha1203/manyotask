@@ -1,0 +1,15 @@
+<% if label.errors.present? %>
+  <ul id="error_explanation">
+    <% label.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: [:admin, label], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', id: 'task_name' %>
+  </div>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end %>

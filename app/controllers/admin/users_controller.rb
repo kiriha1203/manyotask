@@ -52,10 +52,6 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
   end
 
-  def require_admin
-    redirect_to tasks_url, warning: "管理者権限がありません。" unless current_user.admin?
-  end
-
   def set_user
     @user = User.find(params[:id])
   end

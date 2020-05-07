@@ -24,6 +24,7 @@ class TasksController < ApplicationController
   
   def new
     @task = current_user.tasks.build
+    @labels = Label.select(:id, :name)
     change_layout
   end
   
@@ -41,6 +42,7 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @labels = Label.select(:id, :name)
     change_layout
   end
 
@@ -60,7 +62,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :content, :end_deadline, :status, :priority)
+    params.require(:task).permit(:name, :content, :end_deadline, :status, :priority, { label_ids: []})
   end
 
   def set_task
