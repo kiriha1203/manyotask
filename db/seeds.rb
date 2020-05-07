@@ -26,8 +26,8 @@ User.all.each do |user|
       name: "#{i}番目のタスク",
       content: "#{i}番目のタスクの内容",
       end_deadline: Date.today.change(day: i+1),
-      status: 0,
-      priority: 0,
+      status: '未着手',
+      priority: '高',
       user_id: user.id
     )
   end
@@ -39,8 +39,8 @@ User.all.each do |user|
       name: "#{i}番目のタスク",
       content: "#{i}番目のタスクの内容",
       end_deadline: Date.today.change(day: i+2),
-      status: 1,
-      priority: 50,
+      status: '着手中',
+      priority: '中',
       user_id: user.id
     )
   end
@@ -52,8 +52,8 @@ User.all.each do |user|
       name: "#{i}番目のタスク",
       content: "#{i}番目のタスクの内容",
       end_deadline: Date.today.change(day: i+3),
-      status: 99,
-      priority: 99,
+      status: '完了',
+      priority: '低',
       user_id: user.id
     )
   end

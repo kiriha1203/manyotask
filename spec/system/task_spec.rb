@@ -1,12 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
+  wait = Selenium::WebDriver::Wait.new(:timeout => 1000)
   before do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
+    create(:label, id: 1, name: "ruby")
     user = create(:user)
-    create(:task, user: user)
-    create(:second_task, user: user)
-    create(:third_task, user: user)
+    task = create(:task, user: user)
+    second_task = create(:second_task, user: user)
+    third_task = create(:third_task, user: user)
+    task.labellings.create(id: 10, label_id: 1)
+    second_task.labellings.create(id: 11, label_id: 1)
+    third_task.labellings.create(id: 12, label_id: 1)
+
     visit login_path
     fill_in 'session_email', with: 'sample@example.com'
     fill_in 'session_password', with: '00000000'
@@ -32,9 +38,8 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context '終了期限でソートする' do
-      it '終了期限の降順で並んでいる' do
+      it '終了期限の降順で並んでいる', :retry => 3 do
         # タスク一覧ページに遷移
-        wait = Selenium::WebDriver::Wait.new(:timeout => 100)
         visit tasks_path
         click_on 'desc_end_deadline'
         task_list = all('tbody tr')
@@ -44,9 +49,8 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context '優先順位でソートする' do
-      it '優先順位の昇順で並んでいる' do
+      it '優先順位の昇順で並んでいる', :retry => 3 do
         # タスク一覧ページに遷移
-        wait = Selenium::WebDriver::Wait.new(:timeout => 100)
         visit tasks_path
         click_on 'asc_priority'
         task_list = all('tbody tr')
@@ -71,6 +75,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in "task_end_deadline", with: Date.today
         select '完了', from: 'task_status'
         select '低', from: 'task_priority'
+        check 'task_label_ids_1'
         # 「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）
         # 4.「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_on '登録する'

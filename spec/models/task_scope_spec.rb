@@ -7,6 +7,7 @@ RSpec.describe 'タスク管理機能', type: :model do
       create(:task, name: "task", user: user)
       create(:second_task, name: "sample", user: user)
       create(:third_task, name: "sample2", user: user)
+
     end
     it "scopeメソッドでタイトル検索ができる" do
       expect(Task.name_like('task').count).to eq 1

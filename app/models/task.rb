@@ -16,7 +16,7 @@ class Task < ApplicationRecord
   scope :recent, -> { order(id: :desc)}
   scope :name_like, -> (name_search) do
     next if name_search.blank?
-    where("name LIKE ?", "%#{name_search}%")
+    where("tasks.name LIKE ?", "%#{name_search}%")
   end
 
   scope :status_search, -> (status_search) do
