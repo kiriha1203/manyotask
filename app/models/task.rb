@@ -14,8 +14,20 @@ class Task < ApplicationRecord
   end
 
   scope :recent, -> { order(id: :desc)}
-  scope :name_like, -> (name_search) { where('name LIKE ?', "%#{name_search}%")}
-  scope :status_search, ->(status_search) { where( status: status_search)}
+  scope :name_like, -> (name_search) do
+    next if name_search.blank?
+    where("name LIKE ?", "%#{name_search}%")
+  end
+
+  scope :status_search, -> (status_search) do
+    next if status_search.blank?
+    where(status: status_search)
+  end
+
+  scope :label_search, -> (label_search) do
+    next if label_search.blank?
+    joins(:labels).where(labels: { id: label_search})
+  end
 
   enum priority: { 高: 0, 中: 50, 低: 99 }
   enum status:  { 未着手: 0, 着手中: 1, 完了: 99}

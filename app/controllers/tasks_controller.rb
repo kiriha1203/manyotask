@@ -5,18 +5,14 @@ class TasksController < ApplicationController
   def index
     @tasks = current_user.tasks
     if params[:search].present?
-      if params[:name_search].present? && params[:status_search].present?
-        @tasks = @tasks.name_like(params[:name_search]).status_search(params[:status_search])
-      elsif params[:name_search].present?
-        @tasks = @tasks.name_like(params[:name_search])
-      elsif params[:status_search].present?
-        @tasks = @tasks.status_search(params[:status_search])
-      end
+      @tasks = @tasks.name_like(params[:name_search])
+                 .status_search(params[:status_search])
+                 .label_search(params[:label_search])
     end
     if params[:sort].present?
       @tasks = @tasks.order("#{params[:column]} #{params[:sort]}")
     else
-      @tasks = @tasks.recent.page(params[:page])
+      @tasks = @tasks.recent
     end
     @tasks = @tasks.page(params[:page]).per(PER)
     change_layout
