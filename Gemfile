@@ -62,6 +62,7 @@ group :test do
   gem 'capybara'
   gem 'webdrivers'
   gem 'database_cleaner'
+  gem 'rspec-retry'
 end
 
 gem 'bootstrap'

@@ -38,25 +38,25 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context '終了期限でソートする' do
-      it '終了期限の降順で並んでいる', :retry => 3 do
+      it '終了期限の降順で並んでいる', :retry => 5 do
         # タスク一覧ページに遷移
         visit tasks_path
         click_on 'desc_end_deadline'
         task_list = all('tbody tr')
-        wait.until{expect(task_list[0]).to have_content '中'}
-        wait.until{expect(task_list[1]).to have_content '低'}
-        wait.until{expect(task_list[2]).to have_content '高'}
+        wait.until {expect(task_list[0]).to have_content 'Factoryで作ったデフォルトのタイトル２'}
+        wait.until {expect(task_list[1]).to have_content 'Factoryで作ったデフォルトのタイトル１'}
+        wait.until {expect(task_list[2]).to have_content 'Factoryで作ったデフォルトのタイトル３'}
       end
     end
     context '優先順位でソートする' do
-      it '優先順位の昇順で並んでいる', :retry => 3 do
+      it '優先順位の昇順で並んでいる', :retry => 5 do
         # タスク一覧ページに遷移
         visit tasks_path
         click_on 'asc_priority'
         task_list = all('tbody tr')
-        wait.until{expect(task_list[0]).to have_content '高'}
-        wait.until{expect(task_list[1]).to have_content '中'}
-        wait.until{expect(task_list[2]).to have_content '低'}
+        wait.until{expect(task_list[0]).to have_content 'Factoryで作ったデフォルトのタイトル３'}
+        wait.until{expect(task_list[1]).to have_content 'Factoryで作ったデフォルトのタイトル２'}
+        wait.until{expect(task_list[2]).to have_content 'Factoryで作ったデフォルトのタイトル１'}
       end
     end
   end
