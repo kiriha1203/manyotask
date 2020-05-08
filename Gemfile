@@ -14,7 +14,7 @@ gem 'puma', '~> 3.11'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -37,6 +37,7 @@ group :development, :test do
   gem 'pry-doc'    # methodを表示
   gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
   gem 'pry-stack_explorer' # スタックをたどれる
+  gem 'bullet'
 end
 
 group :development do
@@ -49,6 +50,7 @@ group :development do
   gem 'better_errors'
   # better_errorsの画面上にirb/pry(PERL)を表示する
   gem 'binding_of_caller'
+  gem 'bullet'
 end
 
 gem 'turbolinks'
@@ -58,13 +60,16 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'database_cleaner'
+  gem 'rspec-retry'
 end
 
 gem 'bootstrap'
 
 gem 'jquery-rails'
+
+gem 'jquery-ui-rails'
 
 gem 'kaminari'
 
@@ -73,3 +78,5 @@ gem 'kaminari-bootstrap'
 gem 'uglifier'
 
 gem 'dotenv-rails'
+
+gem 'sassc-rails'
